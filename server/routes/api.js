@@ -5,6 +5,8 @@ import { toggleLike } from '../controllers/likeController.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 import upload from '../middleware/upload.js';
 
+import { toggleFollow, getFollowers, getFollowing } from '../controllers/followsController.js';
+
 const router = express.Router();
 
 // Auth routes
@@ -19,5 +21,10 @@ router.get('/posts/liked', authenticateToken, getMyLikedPosts);
 
 // Like routes
 router.post('/posts/:postId/like', authenticateToken, toggleLike);
+
+// Follow routes
+router.post('/users/:followingId/follow', authenticateToken, toggleFollow);
+router.get('/users/:userId/followers', getFollowers);
+router.get('/users/:userId/following', getFollowing);
 
 export default router;
